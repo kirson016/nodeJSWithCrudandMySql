@@ -1,18 +1,14 @@
 
-/**
- * Module dependencies.
- */
-
 var express = require('express');
 var routes = require('./routes');
 var http = require('http');
 var path = require('path');
 
 //load customers route
-var customers = require('./routes/customers'); 
+var customers = require('./routes/customers');
 var app = express();
 
-var connection  = require('express-myconnection'); 
+var connection  = require('express-myconnection');
 var mysql = require('mysql');
 
 // all environments
@@ -27,28 +23,23 @@ app.use(express.methodOverride());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-// development only
+
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-/*------------------------------------------
-    connection peer, register as middleware
-    type koneksi : single,pool and request 
--------------------------------------------*/
 
 app.use(
-    
+
     connection(mysql,{
-        
+
         host: 'localhost',
         user: 'root',
         password : '',
-        port : 3306, //port mysql
+        port : 3306,
         database:'nodejs'
 
-    },'pool') //or single
-
+    },'pool')
 );
 
 
